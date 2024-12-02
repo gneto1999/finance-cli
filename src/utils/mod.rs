@@ -13,5 +13,5 @@ pub fn handle_input() -> String {
 
 pub fn clear_terminal() {
     print!("\x1B[2J\x1B[1;1H");
-    std::io::stdout().flush().unwrap();
+    io::stdout().flush().unwrap();
 }

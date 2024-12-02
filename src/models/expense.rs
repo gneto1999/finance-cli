@@ -44,6 +44,13 @@ pub fn generate_id() -> Result<i64, String> {
     Ok(IdInstance::next_id())
 }
 
+impl PartialEq for Expense {
+    fn eq(&self, other: &Self) -> bool {
+        self.id == other.id && self.title == other.title && self.description == other.description &&
+            self.amount == other.amount && self.date == other.date && self.category.to_string() == other.category.to_string()
+    }
+}
+
 impl Expense {
     pub fn new(title: String, description: String, amount: String, date: String, category: String) -> Expense {
         let id = match generate_id() {
@@ -90,6 +97,10 @@ impl Expense {
 
     pub fn get_amount(&self) -> f64 {
         self.amount
+    }
+
+    pub fn get_description(&self) -> String {
+        self.description.clone()
     }
 
     pub fn display_expense(&self) {
