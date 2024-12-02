@@ -27,7 +27,7 @@ pub fn update_expense_by_id() {
     let amount = utils::handle_input();
     print!("Insira a data da despesa (dd/MM/yyyy): ");
     let date = utils::handle_input();
-    print!("Insira a categoria: ");
+    print!("Insira a categoria entre essa opções(Alimentação, Transporte, Lazer, Saúde, Educação, Cobranças, Outros): ");
     let category = utils::handle_input();
 
     let update_expense = Expense::new(title, description, amount, date, category);

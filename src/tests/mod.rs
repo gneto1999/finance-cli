@@ -41,7 +41,7 @@ mod tests {
         let expense = Expense::new("1".to_string(), "Teste".to_string(), "10.0".to_string(), "02/12/2024".to_string(), Category::Transporte.to_string());
         add_expense(&expense);
 
-        let retrieved_expense = list_expense_by_id(1i64).unwrap();  // Usando i64
+        let retrieved_expense = list_expense_by_id(expense.get_id()).unwrap();
         assert_eq!(retrieved_expense, expense);
 
         let result = list_expense_by_id(2i64);
@@ -68,13 +68,13 @@ mod tests {
         add_expense(&expense1);
         add_expense(&expense2);
 
-        delete_expense_by_id(1i64);
+        delete_expense_by_id(expense1.get_id());
 
         let expenses = list_expenses().unwrap();
         assert_eq!(expenses.len(), 1);
         assert_eq!(expenses[0], expense2);
 
-        let result = list_expense_by_id(1i64);
+        let result = list_expense_by_id(expense1.get_id());
         assert!(result.is_err());
     }
 
@@ -86,15 +86,16 @@ mod tests {
         add_expense(&expense);
 
         let updated_expense = Expense::new("1".to_string(), "TESTE 1".to_string(), "20.0".to_string(), "02/12/2024".to_string(), Category::Alimentacao.to_string());
-        let result = update_expense_by_id(1i64, &updated_expense);  // Usando i64
+        let result = update_expense_by_id(expense.get_id(), &updated_expense);
+        let id_update = result.clone().unwrap().get_id();
 
         assert!(result.is_ok());
         assert_eq!(result.unwrap(), &updated_expense);
 
-        let retrieved_expense = list_expense_by_id(1i64).unwrap();  // Usando i64
+        let retrieved_expense = list_expense_by_id(id_update).unwrap();
         assert_eq!(retrieved_expense, updated_expense);
 
-        let result = update_expense_by_id(2i64, &updated_expense);  // Usando i64
+        let result = update_expense_by_id(2i64, &updated_expense);
         assert!(result.is_err());
     }
 
